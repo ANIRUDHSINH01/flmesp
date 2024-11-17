@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Verification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Certificate Verification</h1>
+      <form id="verifyForm">
+        <div class="mb-4">
+          <label for="certificateId" class="block text-gray-700 font-medium mb-2">Enter Certificate ID</label>
+          <input
+            type="text"
+            id="certificateId"
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="e.g., CERT-001"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition">
+          Verify
+        </button>
+      </form>
+
+      <div id="result" class="mt-6 hidden">
+        <div id="validResult" class="bg-green-100 text-green-700 p-4 rounded-md hidden">
+          <h2 class="text-xl font-bold mb-2">Certificate Details</h2>
+          <p><strong>ID:</strong> <span id="certId"></span></p>
+          <p><strong>Name:</strong> <span id="certName"></span></p>
+          <p><strong>Issued By:</strong> <span id="certIssuer"></span></p>
+          <p><strong>Issued On:</strong> <span id="certDate"></span></p>
+        </div>
+        <div id="invalidResult" class="bg-red-100 text-red-700 p-4 rounded-md hidden">
+          <p>Certificate not found!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("verifyForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const certificateId = document.getElementById("certificateId").value;
+
+      // Fetch data from verification API
+      const response = await fetch(`/api/verify/${certificateId}`);
+      const data = await response.json();
+
+      const resultDiv = document.getElementById("result");
+      const validResultDiv = document.getElementById("validResult");
+      const invalidResultDiv = document.getElementById("invalidResult");
+
+      // Reset result divs
+      resultDiv.classList.remove("hidden");
+      validResultDiv.classList.add("hidden");
+      invalidResultDiv.classList.add("hidden");
+
+      if (data.valid) {
+        // Display valid result
+        document.getElementById("certId").innerText = data.certificate.id;
+        document.getElementById("certName").innerText = data.certificate.name;
+        document.getElementById("certIssuer").innerText = data.certificate.issuedBy;
+        document.getElementById("certDate").innerText = new Date(data.certificate.issuedOn).toLocaleDateString();
+        validResultDiv.classList.remove("hidden");
+      } else {
+        // Display invalid result
+        invalidResultDiv.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
