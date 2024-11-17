@@ -1,0 +1,37 @@
+[
+  {
+    "id": "CERT-001",
+    "name": "John Doe",
+    "issuedBy": "Hardy's Academy",
+    "issuedOn": "2024-11-01",
+    "additionalData": "Completed Frontend Development Course"
+  },
+  {
+    "id": "CERT-002",
+    "name": "Jane Smith",
+    "issuedBy": "Hardy's Academy",
+    "issuedOn": "2024-11-05",
+    "additionalData": "Completed Backend Development Course"
+  },
+  {
+    "id": "CERT-003",
+    "name": "Robert Johnson",
+    "issuedBy": "Hardy's Academy",
+    "issuedOn": "2024-11-10",
+    "additionalData": "Completed Full Stack Development Course"
+  },
+  {
+    "id": "CERT-004",
+    "name": "Emily Davis",
+    "issuedBy": "Hardy's Academy",
+    "issuedOn": "2024-11-15",
+    "additionalData": "Completed Data Science Essentials"
+  },
+  {
+    "id": "CERT-005",
+    "name": "Michael Brown",
+    "issuedBy": "Hardy's Academy",
+    "issuedOn": "2024-11-17",
+    "additionalData": "Completed Machine Learning Basics"
+  }
+]
